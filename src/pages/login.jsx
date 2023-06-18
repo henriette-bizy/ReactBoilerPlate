@@ -21,7 +21,7 @@ export const Login = () => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required"),
+      email: Yup.string().email("Invalid email address").required(" Email Required"),
       password: Yup.string()
         .min(8, "Must be at least 8 characters")
         .required("Required"),
@@ -82,7 +82,7 @@ export const Login = () => {
                 className="rounded-md border-2 border-blue h-[45px] text-[13px] p-3"
               />
               {formik.touched.email && formik.errors.email ? (
-                <div>{formik.errors.email}</div>
+                <div className="text-[13px] text-red">{formik.errors.email}</div>
               ) : null}
             </div>
             <div className="flex flex-col mb-7">
@@ -99,9 +99,7 @@ export const Login = () => {
                 onBlur={formik.handleBlur}
                 className="rounded-md border-2 border-blue h-[45px] text-[13px] p-3"
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div>{formik.errors.password}</div>
-              ) : null}
+              {formik.touched.password && formik.errors.password ? <div className="text-[13px] text-red">{formik.errors.password}</div>: null}
             </div>
 
             <div className="flex flex-col my-3">

@@ -9,7 +9,7 @@ export default {
       'blue':'#0278AE',
       'lightdark': '#0000006e',
       'gray': '#6b7280',
-      'lightorange': '#ffa500',
+      'red': '#AE0001',
       'orangeshadow': '#b86b3930',
       'orange': '#FF9A03',
       'lightgrey': '#F7F5F5',
