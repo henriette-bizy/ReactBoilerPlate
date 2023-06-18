@@ -6,6 +6,7 @@ import { Register } from './pages/register'
 import { ProtectedRoute } from './routes/protectedRoute'
 import { Display } from './pages/display'
 import { Table } from './components/table'
+// import Chart from './components/chart'
 
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -20,7 +21,8 @@ function App() {
     <Route element={<Register />} path='/register'></Route>
     <Route element={<ProtectedRoute><Dashboard /></ProtectedRoute>} path='/dashboard'></Route>
     <Route element={<ProtectedRoute><Display /></ProtectedRoute>} path='/users'></Route>
-    {/* <Route element={<Display />} path='/tablet'></Route> */}
+    
+    {/* <Route element={<Display />} path='/tablet'></Route>   */}
    </Routes>
    </Router>
   )

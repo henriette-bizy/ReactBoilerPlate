@@ -1,9 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink , useLocation } from 'react-router-dom'
 
 export const SideBar = () => {
 
-
+   const location = useLocation();
     
   return (
     <div className='w-[18%] bg-blue h-[100vh] float-left'>
@@ -17,7 +17,7 @@ export const SideBar = () => {
            <ul className='w-full'>
             
             <li className=''>
-              <NavLink to="/dashboard" className="w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor" >
+              <NavLink to="/dashboard" className={`w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor ${location.pathname == '/dashboard' && 'bg-hoverColor'}`} >
                 <div className='w-16'>
                 <img src={'/images/bxs_dashboard.png'} className='w-[32px] h-[32px]'></img>
                 </div>
@@ -28,7 +28,7 @@ export const SideBar = () => {
             
                 </li>
                 <li className='w-[100%] mx-auto flex flex-row my-5 h-[45px] items-center justify-center hover:bg-hoverColor '>
-                <NavLink to="/users" className="w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor" >
+                <NavLink to="/users" className={`w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor ${location.pathname == '/users' && 'bg-hoverColor'}`}>
                 <div className='w-16'>
                 <img src={'/images/users.png'} className='w-[32px] h-[32px]'></img>
                 </div>

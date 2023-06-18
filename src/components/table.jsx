@@ -1,8 +1,16 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../util/axios";
+import { Link } from 'react-router-dom';
 
 export const Table =() => {
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+
+
+
+
 
 
   const [data, setData] = useState([]);
@@ -37,8 +45,10 @@ export const Table =() => {
     setCurrentPage(currentPage - 1);
   };
   return (
-    <div className='w-[70%] h-[45vh] flex flex-row my-24 items-center justify-center float-left'>
-          <table className="w-[78%] h-[46vh]">
+    <div className='w-[70%] h-[45vh] flex flex-col items-center justify-center float-left'>
+
+   
+          <table className="w-[78%] h-[46vh] ">
   <thead>
     <tr className='bg-blue text-white'>
       <th class="p-3 tex-sm font-semibold tracking-wide text-left">FirstName</th>

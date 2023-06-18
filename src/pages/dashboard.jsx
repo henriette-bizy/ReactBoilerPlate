@@ -2,8 +2,8 @@ import React from 'react'
 import { SideBar } from '../components/sidebar'
 import { MenuBar } from '../components/menuBar'
 import { FlexBox } from '../components/flexBox'
-import { Chart } from '../components/chart'
 import { RightBar } from '../components/rightBar'
+import { Chart } from '../components/chart'
 
 
 export const Dashboard = () => {
@@ -19,6 +19,7 @@ export const Dashboard = () => {
    <FlexBox />
    <RightBar />
    <Chart />
+   
    
 
     </div>
