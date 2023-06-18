@@ -15,6 +15,7 @@ export default {
       'lightgrey': '#F7F5F5',
       'lightgray': '#807b7b',
       'lightblue':'#E3F0F6',
+      'hoverColor':'#6CB1D0'
       
     },
 

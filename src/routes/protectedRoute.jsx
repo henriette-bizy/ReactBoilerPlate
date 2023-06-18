@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
-import authStorage from '../util/storage';
+import auth from '../util/storage';
 
-export const ProtectedRoute = () => {
-    return authStorage.getToken() ? children : <Navigate to='/login'/>
+export const ProtectedRoute = ({children}) => {
+    return auth.getToken() ? children : <Navigate to='/login'/>
 }
 
 

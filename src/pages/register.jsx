@@ -1,9 +1,12 @@
 import React from 'react'
-import { useFormik } from 'formik'
+import { Formik, useFormik } from 'formik'
 import * as Yup from 'yup'
 import { axiosInstance } from '../util/axios'
+import {useNavigate } from 'react-router-dom'
 
 export const Register = () => {
+
+     const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues:{
@@ -23,7 +26,7 @@ export const Register = () => {
             .email("Invalid email address"),
             role:Yup.string()
             .required("Required")
-            .default("client"),
+            .default("admin"),
             password:Yup.string()
             .min(8,"must be atleset 8 characters long")
             .required("Required"),
@@ -35,11 +38,12 @@ export const Register = () => {
               firstName: values.firstName,
               lastName: values.lastName,
               email: values.email,
+              role:'admin',
               password: values.password,
-              role:values.role
+              
       }).then(response =>{
           console.log(response)
-          console.log("finally signed up");
+          navigate('/dashboard')
       }).catch(error =>{
           setError(error.response.data)
       }).finally(() =>{
@@ -47,6 +51,7 @@ export const Register = () => {
       })
       }
     })
+
   return (
     <div className="w-full bg-[url('images/Login.jpg')] bg-cover bg-no-repeat h-[100vh] ">
   <div className='w-[50%] mx-auto flex items-center justify-center flex-col h-[97%]'>
@@ -103,17 +108,21 @@ export const Register = () => {
           />
           {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div>:null}
         </div>
-        <div className='flex flex-col my-3'>
-            <label className='text-blue font-semibold text-[13px] my-3' >Role</label>
-          <select 
-           id="role"
-           name="role"
-           className='rounded-md border-2 border-blue h-[45px] text-[13px] p-3'>
-            <option value="admin" name="role" id='role' >Admin</option>
-            <option value="client" name='role' id='role'>Client</option>
-          </select>
-        </div>
-        
+          <div className='flex flex-col my-3'>
+              <label className='text-blue font-semibold text-[13px] my-3' >Role</label>
+            <select 
+            id='role'
+            name='role'
+            value={formik.values.role}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className='rounded-md border-2 border-blue h-[45px] text-[13px] p-3'>
+              <option value='admin' >Admin</option>
+              <option value='client'>Client</option>
+            </select>
+            {formik.touched.role && formik.errors.role ? <div>{formik.errors.role}</div>:null}
+          </div>
+          
         <div className='flex flex-col mb-7'>
         <label className='text-blue font-semibold text-[13px] my-3'>Password</label>
           <input
