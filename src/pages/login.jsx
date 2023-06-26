@@ -30,28 +30,20 @@ export const Login = () => {
     onSubmit: (values, { setSubmitting }) => {
       console.log("on submitting");
       axiosInstance
-        .post("/login", {
+        .post("/auth/login", {
           email: values.email,
           password: values.password,
         })
         .then((response) => {
           console.log(response);
-          console.log(response.data.token);
-          auth.storeToken(response.data.token);
-
-          
-          // const decodedToken = Jwt.verify(response.data.token, 'Henriette@qwerty123456')
-
-      // Extract user information from the decoded token
-        //  const { user } = decodedToken;
-        //  console.log(user); // Log the user information
-
-
+          console.log(response.data.data.accessToken);
+          auth.storeToken(response.data.data.accessToken);
           navigate("/users");
           console.log("finished");
         })
         .catch((error) => {
-          console.log(error.message);
+          // console.log(error.message);
+          setError(response.data.message)
         })
         .finally(() => {
           setSubmitting(false);
@@ -61,12 +53,13 @@ export const Login = () => {
 
   return (
     <div className=" w-full bg-[url('/images/Login.jpg')] bg-cover bg-no-repeat h-[100vh] flex items-center">
-      <div className="w-[50%] mx-auto">
+      <div className="w-[50%] mx-auto ">
         <div className=" text-white font-bold text-[1.4rem]">
           <h2 className="text-center p-4 capitalize">Welcome, Sign in</h2>
         </div>
-        <div className="bg-white w-[80%] h-[55vh] mx-auto my-auto rounded-md">
+        <div className="bg-white md:w-[80%] sm:[90%] h-[55vh] mx-auto my-auto rounded-md">
           <form className="w-[80%] mx-auto p-10" onSubmit={formik.handleSubmit}>
+          {error && <div className="text-[13px] text-red">{error}</div>}
             <div className="flex flex-col my-3">
               <label className="text-blue font-semibold text-[13px] mb-3">
                 Email

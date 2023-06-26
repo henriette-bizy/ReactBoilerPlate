@@ -1,107 +1,54 @@
-import React from 'react'
-import { useEffect, useState } from "react";
-import { axiosInstance } from "../util/axios";
+import React, { useEffect, useState } from 'react';
+import { axiosInstance } from '../util/axios';
+import auth from '../util/storage';
 import { Link } from 'react-router-dom';
 
-export const Table =() => {
-
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
-
-
-
-
-
-
+export const Table = () => {
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [hasNext, setHasNext] = useState(false);
+
   const fetchData = async () => {
     try {
-      // const res = await axios.get(`/user/?page=${currentPage}`);
-     const res =  await axiosInstance.get(`/user/?page=${currentPage}&limit=3`)
-     console.log(res.data.users);
-      setData(res.data.users.docs);
-      setTotalPages(res.data.users.totalPages);
-      console.log(res.data.users.totalPages, currentPage);
-      if (res.data.users.totalPages > currentPage) {
-        setHasNext(true);
-      } else {
-        setHasNext(false);
-      }
-    } catch (e) {
-      console.log(e);
+      const token = auth.getToken();
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const res = await axiosInstance.get('/products');
+      setData(res.data.data);
+    } catch (error) {
+      console.log(error);
     }
   };
-  console.log(hasNext);
+
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
-  const handleNext = () => {
-    setCurrentPage(currentPage + 1);
-  };
-  const handlePrev = () => {
-    setCurrentPage(currentPage - 1);
-  };
+  }, []);
+
   return (
-    <div className='w-[70%] h-[45vh] flex flex-col items-center justify-center float-left'>
-
-   
-          <table className="w-[78%] h-[46vh] ">
-  <thead>
-    <tr className='bg-blue text-white'>
-      <th class="p-3 tex-sm font-semibold tracking-wide text-left">FirstName</th>
-      <th class="p-3 tex-sm font-semibold tracking-wide text-left">LastName</th>
-      <th class="p-3 tex-sm font-semibold tracking-wide text-left">Email</th>
-      <th class="p-3 tex-sm font-semibold tracking-wide text-left">Role</th>
-    </tr>
-  </thead>
-  <tbody>
-     {
-      data && data.map((el)=>{
-        return(
-          <>
-    <tr className='border-sm '>
-
-           <td className="p-3 text-[14px] font-semibold">{el.firstName}</td>
-           <td className="p-3 text-[14px] font-semibold">{el.lastName}</td>
-           <td className="p-3 text-[14px] font-semibold">{el.email}</td>
-           <td className="p-3 text-[14px] font-semibold">{el.role}</td> 
-           </tr>
-
-
-          </>
-        )
-      })
-     }
-  
-  </tbody>
-  <div className="my-8 flex flex-row justify-center gap-4 ">
-          <button
-            type='submig'
-            className="py-2 px-4 border text-white rounded-md bg-blue"
-            onClick={handlePrev}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <span className="flex justify-center items-center font-bold text-blue-800 disabled:bg-lightgray">
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            type='submit'
-            className="py-2 px-4 border text-white rounded-md bg-blue  disabled:bg-lightgray"
-            onClick={handleNext}
-            disabled={!hasNext}
-          >
-            Next
-          </button>
-        </div>
-  
-
-  
-</table>
+    <div className="w-[79%] h-[45vh] flex flex-col items-center justify-center">
+      <table className="w-[80%] h-[46vh]">
+        <thead>
+          <tr className="bg-blue text-white">
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">Code</th>
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">Name</th>
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">Product Type</th>
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">Price</th>
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">In Date</th>
+            <th className="p-3 tex-sm font-semibold tracking-wide text-left">Buy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.code} className="border-sm">
+              <td className="p-1 text-[14px] font-semibold">{item.code}</td>
+              <td className="p-3 text-[14px] font-semibold">{item.name}</td>
+              <td className="p-3 text-[14px] font-semibold">{item.productType}</td>
+              <td className="p-3 text-[14px] font-semibold">{item.price}</td>
+              <td className="p-3 text-[14px] font-semibold">{item.inDate}</td>
+              <td className="p-3 text-[14px] font-semibold">
+              <Link to={`/mycart?product=${item.name}&price=${item.price}&code=${item.code}`}>Add to Cart</Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  )
-}
+  );
+};

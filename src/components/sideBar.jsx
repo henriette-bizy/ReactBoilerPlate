@@ -33,18 +33,29 @@ export const SideBar = () => {
                 <img src={'/images/users.png'} className='w-[32px] h-[32px]'></img>
                 </div>
                 <div className='w-28'>
-                 <p className='text-[15px] text-white'>Users</p>
+                 <p className='text-[15px] text-white'>Products</p>
                  </div>
                 </NavLink>
                 </li>
                 <li className='w-[100%] mx-auto flex flex-row my-5 h-[45px] items-center justify-center hover:bg-hoverColor '>
+                <NavLink to="/users" className={`w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor ${location.pathname == '/mycart' && 'bg-hoverColor'}`}>
                 <div className='w-16'>
-                <img src={'/images/charts.png'} className='w-[32px] h-[32px]'></img>
+                <img src={'/images/users.png'} className='w-[32px] h-[32px]'></img>
                 </div>
                 <div className='w-28'>
-                 <p className='text-[15px] text-white'>Products</p>
+                 <p className='text-[15px] text-white'>My cart</p>
                  </div>
-            
+                </NavLink>
+                </li>
+                <li className='w-[100%] mx-auto flex flex-row my-5 h-[45px] items-center justify-center hover:bg-hoverColor '>
+                <NavLink to="/users" className={`w-[100%] mx-auto flex flex-row my-5 h-[45px]  items-center justify-center  hover:bg-hoverColor ${location.pathname == '/report' && 'bg-hoverColor'}`}>
+                <div className='w-16'>
+                <img src={'/images/users.png'} className='w-[32px] h-[32px]'></img>
+                </div>
+                <div className='w-28'>
+                 <p className='text-[15px] text-white'>My Report</p>
+                 </div>
+                </NavLink>
                 </li>
             
            </ul>
